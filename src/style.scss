@@ -2,10 +2,17 @@ body{
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;  
-
+    align-items: center;
+    background-image: url('../src/assets/pexels-karolina-grabowska-5412395.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    
 }
 
+@font-face {
+    font-family: 'digital-7';
+    src:url('../src/assets/fonts/digital-7.ttf')
+}
 
 
 input{
@@ -14,6 +21,11 @@ input{
     background-color: rgb(193, 223, 213);
     border-radius: 5px;
     margin-top: 20px;
+    text-align: right;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'digital-7';
+    
 }
 
 button.plus{

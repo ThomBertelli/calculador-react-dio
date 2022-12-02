@@ -32,6 +32,9 @@ export const ButtonStyled = styled.button`
     border-radius:8px;
     font-size:16px;
     font-weight:bold;
+    &:hover{
+        cursor: pointer;
+    }
 
 `
 
