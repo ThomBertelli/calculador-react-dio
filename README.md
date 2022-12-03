@@ -4,4 +4,4 @@ Full funcional calculador. All the matematical operations work.
 
 Design model:
 
-<img src="img.jpg">
+<img src="./src/assets/images/img.jpg">
