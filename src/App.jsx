@@ -6,143 +6,194 @@ import { useEffect, useState } from "react"
 const App = () => {
 
 
-  
-  
-  const [firstValue, setFirstValue] = useState('0')
-  const [inputValue, setinputValue] = useState('0')
+
+
+  const [firstValue, setFirstValue] = useState('--')
+  const [inputValue, setinputValue] = useState('--')
   const [operation, setOperation] = useState('')
 
-  
-  const plusOperation = () =>{
-    if(firstValue === '0'){
+
+  const plusOperation = () => {
+    if (firstValue === '--') {
       setFirstValue(inputValue)
-      setinputValue('0')
+      setinputValue('--')
       setOperation('plus')
 
-    }else{
+    } else {
       const result = parseFloat(firstValue) + parseFloat(inputValue)
       setinputValue(String(result))
       setOperation('')
-      setFirstValue('0')
-    }  
+      setFirstValue('--')
+    }
   }
 
 
-  const minusOperation = () =>{
-    if(firstValue === '0'){
+  const minusOperation = () => {
 
-      setOperation('minus')
-      setFirstValue(inputValue)
-      setinputValue('-')
-      
-      
 
-    }
-    
-    else{
-      if(Number(inputValue) < 0 ){
+    if (operation === 'minus' || operation === '') {
 
-        const result = (Number(firstValue) + Number(inputValue))
 
-        setinputValue(String(result))
-        setOperation('')
-        setFirstValue('0')
 
-      }else{
-        if(operation === 'minus'){
-          const result = parseFloat(firstValue) - parseFloat(inputValue)
-          setinputValue(String(result))
-          setOperation('')
-          setFirstValue('0')
+      if (firstValue === '--') {
 
-        }
+        setOperation('minus')
+        setFirstValue(inputValue)
+        setinputValue('-')
+
+
+
       }
 
-    }   
+      else {
+        if (Number(inputValue) < 0) {
+
+          const result = (Number(firstValue) + Number(inputValue))
+
+          setinputValue(String(result))
+          setOperation('')
+          setFirstValue('--')
+
+        } else {
+          if (operation === 'minus') {
+            const result = parseFloat(firstValue) - parseFloat(inputValue)
+            setinputValue(String(result))
+            setOperation('')
+            setFirstValue('--')
+
+          }
+        }
+
+      }
+    } else {
+      setinputValue('-')
+    }
   }
 
-  const multiplyOperation = () =>{
-    if(firstValue === '0'){
+  const multiplyOperation = () => {
+    if (firstValue === '--') {
       setFirstValue(inputValue)
-      setinputValue('0')
+      setinputValue('--')
       setOperation('multiply')
 
-    }else{
+    } else {
       const result = parseFloat(firstValue) * parseFloat(inputValue)
       setinputValue(String(result))
       setOperation('')
-      setFirstValue('0')
-    }   
+      setFirstValue('--')
+    }
   }
 
-  
+  const divideOperation = () => {
+    if (firstValue === '--') {
+      setFirstValue(inputValue)
+      setinputValue('--')
+      setOperation('divide')
 
-  
-
-  const isOn = () => {
-    if (inputValue !== '') {
-      return true
+    } else {
+      const result = parseFloat(firstValue) / parseFloat(inputValue)
+      setinputValue(String(result))
+      setOperation('')
+      setFirstValue('--')
     }
-    return false
+  }
+
+  const percentOperation = () => {
+    if (firstValue === '--') {
+      setFirstValue(inputValue)
+      setinputValue('--')
+      setOperation('percent')
+
+    } else {
+
+
+      const result = (parseFloat(inputValue) * parseFloat(firstValue) / 100) + parseFloat(firstValue)
+      setinputValue(String(result))
+      setOperation('')
+      setFirstValue('--')
+    }
+  }
+
+  const squareOperation = () => {
+    if (firstValue === '--') {
+      setFirstValue(inputValue)
+      setinputValue('--')
+      setOperation('square')
+
+    } else {
+
+
+      const result = Math.sqrt( parseFloat(firstValue))
+      setinputValue(String(result))
+      setOperation('')
+      setFirstValue('--')
+    }
   }
 
 
   const iqual = () => {
 
     calculate(operation)
-    
+
 
   }
 
-  const calculate = (operation) =>{
+  const calculate = (operation) => {
 
-    switch (operation){
+    switch (operation) {
       case 'plus':
-      plusOperation()
+        plusOperation()
         break
 
       case 'minus':
-      minusOperation()
+        minusOperation()
         break;
-      
+
       case 'multiply':
         multiplyOperation()
         break;
+
+      case 'divide':
+        divideOperation()
+        break;
+
+      case 'percent':
+        percentOperation()
+        break;
+
+      case 'square':
+      squareOperation()
+      break;
+    }
+
+  }
+  
+
+
+  const changeValue = (newValue) => {
+
+
+    if (inputValue === '--') {
+      setinputValue(newValue)
+
+    } else {
+      setinputValue(newValue = inputValue + newValue)
     }
 
   }
 
 
-  const changeValue = (newValue) => {
-
-    
-        if (inputValue === '0') {
-          setinputValue(newValue)
-
-        } else {
-          setinputValue(newValue = inputValue + newValue)
-        }
-
-  }
-
-
   const ce = () => {
-    setinputValue('0')
+    setinputValue('--')
     setOperation('')
-    setFirstValue('0')
-    
+    setFirstValue('--')
+
   }
 
   const off = () => {
     setinputValue('')
 
   }
-
-  console.log(`first = ${firstValue}`)
-  console.log(`input = ${inputValue}`)
-  console.log(operation)
-
-
 
   return (
 
@@ -158,9 +209,9 @@ const App = () => {
       </div>
       <Content>
         <ButtonStyled onClick={() => off()}>OFF</ButtonStyled>
-        <ButtonStyled> √ </ButtonStyled>
-        <ButtonStyled> % </ButtonStyled>
-        <ButtonStyled> / </ButtonStyled>
+        <ButtonStyled onClick={squareOperation}> √ </ButtonStyled>
+        <ButtonStyled onClick={percentOperation} > % </ButtonStyled>
+        <ButtonStyled onClick={divideOperation} > / </ButtonStyled>
         <ButtonStyled onClick={() => changeValue('7')}>7</ButtonStyled>
         <ButtonStyled onClick={() => changeValue('8')}>8</ButtonStyled>
         <ButtonStyled onClick={() => changeValue('9')}>9</ButtonStyled>
@@ -168,13 +219,13 @@ const App = () => {
         <ButtonStyled onClick={() => changeValue('4')}>4</ButtonStyled>
         <ButtonStyled onClick={() => changeValue('5')}>5</ButtonStyled>
         <ButtonStyled onClick={() => changeValue('6')}>6</ButtonStyled>
-        <ButtonStyled onClick={minusOperation}> - </ButtonStyled>
+        <ButtonStyled onClick={minusOperation}>-</ButtonStyled>
         <ButtonStyled onClick={() => changeValue('1')}>1</ButtonStyled>
         <ButtonStyled onClick={() => changeValue('2')}>2</ButtonStyled>
         <ButtonStyled onClick={() => changeValue('3')}>3</ButtonStyled>
         <ButtonStyled className="plus" onClick={plusOperation} > + </ButtonStyled>
         <ButtonStyled onClick={() => changeValue('0')}>0</ButtonStyled>
-        <ButtonStyled onClick={() => changeValue(',')}>.</ButtonStyled>
+        <ButtonStyled onClick={() => changeValue('.')}>.</ButtonStyled>
         <ButtonStyled onClick={() => iqual()}> = </ButtonStyled>
       </Content>
 
